@@ -11,7 +11,7 @@ ch_driver.maximize_window()
 ch_driver.get("https://sportland.lt/")
 time.sleep(5)
 print(ch_driver.title)
-# input()
+input()
 ch_driver.close()
 
 print(dir())
