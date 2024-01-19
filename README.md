@@ -1,6 +1,5 @@
 # Selenium web reader to file
 
----
 
 ## How to install
 1. Use Python 3.11 version
