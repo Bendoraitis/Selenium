@@ -9,19 +9,14 @@ import yaml
 config = yaml.safe_load(open("config.yml"))
 
 
-def get_products_url_from_category(driver):
+def get_products_url_from_category(driver, url):
     """
     Getting all Product urls from the Category
     :param driver: Selenium Driver
     :return: list of URLS
     """
-    # ... possibly inject cookie (or local storage value) indicating cookie policy to skip this step
-    sel = ".CookiePopup-CTA_isDistinctButtonsStyle > button:nth-child(2)"
-    Dwait(driver, 10).until(ec.presence_of_element_located((By.CSS_SELECTOR, sel)))
-    print(f">>>{driver.title}", flush=True)
-    allow_selected_cookies_button = driver.find_element(By.CSS_SELECTOR, sel)
-    allow_selected_cookies_button.click()
-    scroll_to_end(driver)
+
+    driver.get(url)
     time.sleep(config['website']['delay'])
 
     load_all = driver.find_element(By.XPATH, config['website']['get_all_button'])
@@ -50,3 +45,12 @@ def scroll_to_end(driver):
     for _ in range(10):  # Adjust the number of iterations as needed
         ActionChains(driver).send_keys(Keys.END).perform()
         time.sleep(1)  # Adjust sleep duration if needed
+
+
+def set_cookies(driver):
+    # inject cookie
+    sel = ".CookiePopup-CTA_isDistinctButtonsStyle > button:nth-child(2)"
+    Dwait(driver, 10).until(ec.presence_of_element_located((By.CSS_SELECTOR, sel)))
+    allow_selected_cookies_button = driver.find_element(By.CSS_SELECTOR, sel)
+    allow_selected_cookies_button.click()
+    time.sleep(config['website']['delay'])
