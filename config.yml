@@ -1,4 +1,6 @@
 website:
   category: https://sportland.lt/moterys/avalyne/laisvalaikis
+  get_all_button: //*[@id="PRODUCT_LIST_WRAPPER"]/div[1]/div/div/button
+  delay: 5
 drivers:
   main: drivers/chromedriver_v120.0.6099.109
