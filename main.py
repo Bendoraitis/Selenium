@@ -9,8 +9,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import yaml
 import get_content
+import csv
+import os
 
 config = yaml.safe_load(open("config.yml"))
+category_file_name = config['results']['categories_file']
 
 op = webdriver.ChromeOptions()
 ch_driver = webdriver.Chrome(service=ChService(config['drivers']['main']), options=op)
@@ -24,20 +27,16 @@ time.sleep(config['website']['delay'])
 
 get_content.set_cookies(ch_driver)
 
-# all_categories = ch_driver.find_elements(By.CLASS_NAME, 'MenuOverlay-Link')
-all_categories = ch_driver.find_elements(By.CLASS_NAME, 'CategoryMenu-Item')
-for url in all_categories:
-    print(url.get_attribute('href'))
-print(len(all_categories))
-#
-#
-# urls = get_content.get_products_url_from_category(ch_driver, "https://sportland.lt/moterys/avalyne/laisvalaikis")
-#
-#
-#
-# for url in urls:
-#     print(url.get_attribute('href'))
-# print(len(urls))
+
+products_urls = get_content.get_products_url_from_category(ch_driver, "https://sportland.lt/vyrai/avalyne/batai")
+products_urls_list = []
+for url in products_urls:
+    products_urls_list.append(url.get_attribute('href') + '\n')
+
+get_content.write_to_file(config['results']['product_file'], products_urls_list)
+
+ch_driver
+
 
 ch_driver.close()
 

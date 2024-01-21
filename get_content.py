@@ -5,6 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait as Dwait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import yaml
+import os
 
 config = yaml.safe_load(open("config.yml"))
 
@@ -54,3 +55,36 @@ def set_cookies(driver):
     allow_selected_cookies_button = driver.find_element(By.CSS_SELECTOR, sel)
     allow_selected_cookies_button.click()
     time.sleep(config['website']['delay'])
+
+
+# not finished for categories getting....
+def get_categories(driver):
+    all_categories = driver.find_elements(By.CLASS_NAME, 'MenuOverlay-Link')
+
+    # Check if the file already exists
+    file_exists = os.path.isfile(config['results']['categories_file'])
+
+    category_urls = []
+    for row in all_categories:
+        category_urls.append(row.get_attribute('href') + '\n')
+
+        with open(config['results']['categories_file'], 'a') as file:
+            file.writelines(row.get_attribute('href') + '\n')
+
+        remove_duplicates_from_file(config['results']['categories_file'])
+
+
+def write_to_file(file_name, data_list):
+    file_exists = os.path.isfile(file_name)
+    # Open the file in write mode
+    with open(file_name, 'a') as file:
+        # Write each element to a new line
+        for item in data_list:
+            file.write(item + '\n')
+    remove_duplicates_from_file(file_name)
+
+
+def remove_duplicates_from_file(file_name):
+    # remove duplicates
+    uniq_lines = set(open(file_name).readlines())
+    open(file_name, 'w').writelines(uniq_lines)

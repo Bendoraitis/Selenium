@@ -1,6 +1,10 @@
 website:
   homepage: https://sportland.lt/
+  category: https://sportland.lt/vyrai/avalyne/batai
   get_all_button: //*[@id="PRODUCT_LIST_WRAPPER"]/div[1]/div/div/button
   delay: 5
 drivers:
   main: drivers/chromedriver_v120.0.6099.109
+results:
+  categories_file: categories.csv
+  product_file: products.csv
