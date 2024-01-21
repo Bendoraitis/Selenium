@@ -8,7 +8,7 @@ config = yaml.safe_load(open("config.yml"))
 print(config['website']['category'])
 
 op = webdriver.ChromeOptions()
-ch_driver = webdriver.Chrome(service=ChService('drivers/chromedriver_v120.0.6099.109'), options=op)
+ch_driver = webdriver.Chrome(service=ChService(config['drivers']['main']), options=op)
 ch_driver.maximize_window()
 ch_driver.get(config['website']['category'])
 time.sleep(5)
