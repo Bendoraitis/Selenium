@@ -1,4 +1,4 @@
-# Selenium web reader to file
+# Selenium web reader high res product images URL to file
 
 
 ## How to install

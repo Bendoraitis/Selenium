@@ -45,10 +45,8 @@ def get_product_image(driver, url):
     time.sleep(config['website']['delay'])
 
     main_image = driver.find_element(By.XPATH, '/html/body/div[3]/div/div/div/div/div[1]/div[1]/div/button/div/img')
-    print(main_image)
 
     img = main_image.get_attribute('src')
-    print(img)
     return img
 
 
