@@ -8,3 +8,4 @@ drivers:
 results:
   categories_file: categories.csv
   product_file: products.csv
+  image_file: high_resolution_product_image.csv

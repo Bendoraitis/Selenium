@@ -30,6 +30,29 @@ def get_products_url_from_category(driver, url):
     return all_product_url
 
 
+def get_product_image(driver, url):
+    """
+    Getting all Product urls from the Category
+    :param driver: Selenium Driver
+    :return: list of URLS
+    """
+
+    driver.get(url)
+    time.sleep(config['website']['delay'])
+
+    load_all = driver.find_element(By.XPATH, '//*[@id="root"]/main/section/div/div/div[3]/div/div/div/div[1]/div/button/div')
+    load_all.click()
+    time.sleep(config['website']['delay'])
+
+    main_image = driver.find_element(By.XPATH, '/html/body/div[3]/div/div/div/div/div[1]/div[1]/div/button/div/img')
+    print(main_image)
+
+    img = main_image.get_attribute('src')
+    print(img)
+    return img
+
+
+
 def scroll_to_end(driver):
     """
     Scrolling webpage to end
